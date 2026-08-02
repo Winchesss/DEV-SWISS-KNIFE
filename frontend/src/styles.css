@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+@theme {
+  --color-dark-900: #0f1117;
+  --color-dark-800: #161922;
+  --color-dark-700: #1e2130;
+  --color-dark-600: #282c3e;
+  --color-dark-500: #353a50;
+  --color-accent: #06b6d4;
+  --color-accent-hover: #22d3ee;
+  --color-accent-dim: #0e7490;
+  --color-success: #10b981;
+  --color-error: #ef4444;
+  --color-warn: #f59e0b;
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+  --color-border: #2d3348;
+  --font-sans: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+body {
+  @apply bg-dark-900 text-text-primary font-sans m-0 p-0 min-h-screen antialiased;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-dark-800);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-dark-500);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-dim);
+}
+
+/* Input base styles */
+input,
+textarea,
+select {
+  @apply bg-dark-700 border border-border rounded-lg px-4 py-2.5 text-text-primary font-mono text-sm
+         focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent
+         transition-all duration-200 w-full;
+}
+input::placeholder,
+textarea::placeholder {
+  @apply text-text-muted;
+}
+select {
+  @apply cursor-pointer appearance-none;
+}
+
+/* Button base */
+.btn-primary {
+  @apply bg-accent hover:bg-accent-hover text-dark-900 font-semibold px-5 py-2.5 rounded-lg
+         transition-all duration-200 cursor-pointer active:scale-95 text-sm;
+}
+.btn-secondary {
+  @apply bg-dark-600 hover:bg-dark-500 text-text-primary font-medium px-5 py-2.5 rounded-lg
+         border border-border transition-all duration-200 cursor-pointer active:scale-95 text-sm;
+}
+.btn-danger {
+  @apply bg-error/10 hover:bg-error/20 text-error border border-error/30 font-medium
+         px-4 py-2 rounded-lg transition-all duration-200 cursor-pointer active:scale-95 text-sm;
+}
+
+/* Card */
+.card {
+  @apply bg-dark-800 border border-border rounded-xl p-6 transition-all duration-300;
+}
+
+/* Error states */
+input.error,
+textarea.error,
+select.error {
+  @apply border-error ring-2 ring-error/30;
+}
+.error-text {
+  @apply text-error text-xs mt-1 font-medium;
+}

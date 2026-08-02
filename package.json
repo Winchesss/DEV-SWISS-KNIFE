@@ -1,0 +1,13 @@
+{
+  "name": "dev-swiss-knife",
+  "version": "1.0.0",
+  "description": "Developer Swiss Army Knife — Go backend + Angular frontend",
+  "scripts": {
+    "start": "concurrently -k -n BE,FE -c cyan,magenta \"cd backend && go run main.go\" \"cd frontend && npm start\"",
+    "start:backend": "cd backend && go run main.go",
+    "start:frontend": "cd frontend && npm start"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
