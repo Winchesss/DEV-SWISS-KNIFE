@@ -38,7 +38,7 @@ export interface FileSizeResponse {
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
-  private baseUrl = 'http://localhost:8080/api';
+  private baseUrl = 'https://swissknife.tojest.dev/api';
 
   constructor(private http: HttpClient) {}
 

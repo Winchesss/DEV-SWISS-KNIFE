@@ -10,11 +10,11 @@ func main() {
 	r := gin.Default()
 
 	config := cors.DefaultConfig()
-	config.AllowOrigins = []string{"http://localhost:4200"}
-	config.AllowMethods = []string{"GET", "POST", "OPTIONS"}
-	config.AllowHeaders = []string{"Content-Type", "Authorization"}
-	config.AllowCredentials = true
-	r.Use(cors.New(config))
+    config.AllowAllOrigins = true
+    config.AllowMethods = []string{"GET", "POST", "OPTIONS"}
+    config.AllowHeaders = []string{"Content-Type", "Authorization"}
+    config.AllowCredentials = true
+    r.Use(cors.New(config))
 
 	api := r.Group("/api")
 	{
