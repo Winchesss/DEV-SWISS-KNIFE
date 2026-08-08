@@ -13,6 +13,11 @@ func ConvertFileSize(c *gin.Context) {
 		return
 	}
 
+	if *req.Value < 0 {
+		c.JSON(http.StatusBadRequest, models.ErrorResponse{Error: "value cannot be negative"})
+		return
+	}
+
 	units := map[string]float64{
 		"b":   0.125,
 		"B":   1.0,
@@ -36,7 +41,7 @@ func ConvertFileSize(c *gin.Context) {
 		return
 	}
 
-	result := req.Value * fromMult / toMult
+	result := *req.Value * fromMult / toMult
 
 	c.JSON(http.StatusOK, models.FileSizeResponse{
 		Result:   result,

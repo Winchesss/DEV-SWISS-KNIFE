@@ -67,7 +67,7 @@ type AESRequest struct {
 	Text       string `json:"text" binding:"required"`
 	Passphrase string `json:"passphrase" binding:"required"`
 	Action     string `json:"action" binding:"required"` // encrypt or decrypt
-	IV         string `json:"iv,omitempty"`               // required for decrypt, hex-encoded
+	IV         string `json:"iv,omitempty"`              // required for decrypt, hex-encoded
 }
 type AESResponse struct {
 	Result string `json:"result"`
@@ -76,9 +76,9 @@ type AESResponse struct {
 
 // File size
 type FileSizeRequest struct {
-	Value    float64 `json:"value" binding:"required"`
-	FromUnit string  `json:"fromUnit" binding:"required"`
-	ToUnit   string  `json:"toUnit" binding:"required"`
+	Value    *float64 `json:"value" binding:"required"`
+	FromUnit string   `json:"fromUnit" binding:"required"`
+	ToUnit   string   `json:"toUnit" binding:"required"`
 }
 type FileSizeResponse struct {
 	Result   float64 `json:"result"`

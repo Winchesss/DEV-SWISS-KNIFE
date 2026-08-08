@@ -34,12 +34,12 @@ type Action = 'encrypt' | 'decrypt';
             <button type="button" (click)="setAction('encrypt')" 
                     class="flex-1 py-1.5 text-sm font-medium rounded-md transition-all"
                     [class]="action === 'encrypt' ? 'bg-dark-700 text-text-primary shadow-sm' : 'text-text-muted hover:text-text-secondary'">
-              Encrypt
+              {{ selectedAlgorithm === 'base64' ? 'Encode' : 'Encrypt' }}
             </button>
             <button type="button" (click)="setAction('decrypt')" 
                     class="flex-1 py-1.5 text-sm font-medium rounded-md transition-all"
                     [class]="action === 'decrypt' ? 'bg-dark-700 text-text-primary shadow-sm' : 'text-text-muted hover:text-text-secondary'">
-              Decrypt
+              {{ selectedAlgorithm === 'base64' ? 'Decode' : 'Decrypt' }}
             </button>
           </div>
 
@@ -185,7 +185,7 @@ export class CryptoHubComponent {
         obs$ = this.api.xorCipher(v.text, v.key, this.action);
         break;
       case 'base64':
-        obs$ = this.api.base64(v.text, this.action);
+        obs$ = this.api.base64(v.text, this.action === 'encrypt' ? 'encode' : 'decode');
         break;
       case 'aes':
         obs$ = this.api.aes(v.text, v.passphrase, this.action, v.iv);

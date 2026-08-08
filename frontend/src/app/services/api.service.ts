@@ -66,7 +66,7 @@ export class ApiService {
     return this.http.post<CryptoResponse>(`${this.baseUrl}/crypto/xor`, { text, key, action });
   }
 
-  base64(text: string, action: string): Observable<CryptoResponse> {
+  base64(text: string, action: 'encode' | 'decode'): Observable<CryptoResponse> {
     return this.http.post<CryptoResponse>(`${this.baseUrl}/crypto/base64`, { text, action });
   }
 

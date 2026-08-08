@@ -24,6 +24,11 @@ func CaesarCipher(c *gin.Context) {
 		return
 	}
 
+	if req.Action != "encrypt" && req.Action != "decrypt" {
+		c.JSON(http.StatusBadRequest, models.ErrorResponse{Error: "action must be encrypt or decrypt"})
+		return
+	}
+
 	shift := req.Shift % 26
 	if req.Action == "decrypt" {
 		shift = -shift
@@ -56,6 +61,11 @@ func VigenereCipher(c *gin.Context) {
 		return
 	}
 
+	if req.Action != "encrypt" && req.Action != "decrypt" {
+		c.JSON(http.StatusBadRequest, models.ErrorResponse{Error: "action must be encrypt or decrypt"})
+		return
+	}
+
 	if req.Keyword == "" {
 		c.JSON(http.StatusBadRequest, models.ErrorResponse{Error: "keyword cannot be empty"})
 		return
@@ -63,7 +73,7 @@ func VigenereCipher(c *gin.Context) {
 
 	kw := strings.ToUpper(req.Keyword)
 	for _, r := range kw {
-		if !unicode.IsLetter(r) {
+		if r < 'A' || r > 'Z' {
 			c.JSON(http.StatusBadRequest, models.ErrorResponse{Error: "keyword must contain only alphabetic characters"})
 			return
 		}
@@ -100,6 +110,11 @@ func XORCipher(c *gin.Context) {
 	var req models.XORRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, models.ErrorResponse{Error: err.Error()})
+		return
+	}
+
+	if req.Action != "encrypt" && req.Action != "decrypt" {
+		c.JSON(http.StatusBadRequest, models.ErrorResponse{Error: "action must be encrypt or decrypt"})
 		return
 	}
 
@@ -144,10 +159,17 @@ func Base64Encode(c *gin.Context) {
 		return
 	}
 
+	action := req.Action
+	if action == "encrypt" {
+		action = "encode"
+	} else if action == "decrypt" {
+		action = "decode"
+	}
+
 	var result string
-	if req.Action == "encode" {
+	if action == "encode" {
 		result = base64.StdEncoding.EncodeToString([]byte(req.Text))
-	} else if req.Action == "decode" {
+	} else if action == "decode" {
 		decoded, err := base64.StdEncoding.DecodeString(req.Text)
 		if err != nil {
 			c.JSON(http.StatusBadRequest, models.ErrorResponse{Error: "invalid base64 string"})
